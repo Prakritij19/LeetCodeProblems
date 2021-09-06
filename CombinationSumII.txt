@@ -1,0 +1,30 @@
+class Solution {
+public:
+ 
+   void solve(vector<int>& ar,int idx, int target,vector<int>& ds,vector<vector<int>> &ans)
+   {
+       if(target==0)
+       {
+           ans.push_back(ds);
+           return;
+       }
+       for(int i=idx;i<ar.size();i++)
+       {   if(i!=idx && ar[i]==ar[i-1]) continue;
+           if(ar[i]>target) break;
+               
+            ds.push_back(ar[i]);
+            solve(ar,i+1,target-ar[i],ds,ans);
+            ds.pop_back();
+       }
+       
+       
+   }
+      
+    vector<vector<int>> combinationSum2(vector<int>& ar, int target) {
+       vector<vector<int>> ans;
+        vector<int> ds;
+        sort(ar.begin(),ar.end());
+        solve(ar,0,target,ds,ans);
+        return ans;
+    }
+};

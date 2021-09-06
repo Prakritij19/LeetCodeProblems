@@ -1,0 +1,57 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+  
+        int l=s.length();
+        bool ar[l][l];
+        int gap,i,j;
+        int si=0;int end=0; 
+        int count=0;
+        string ans;
+       for(gap=0;gap<l;gap++)
+       {
+           for(i=0,j=gap;j<l;i++,j++)
+           {    
+               if(gap==0)
+               {
+                   ar[i][j]=true;
+               }
+               else if(gap==1)
+               {
+                   if(s[i]==s[j])
+                   {
+                       ar[i][j]=true;
+                   }
+                   else
+                       ar[i][j]=false;
+               }
+               else
+               {
+                   if(s[i]==s[j] && ar[i+1][j-1]==true)
+                   {
+                       ar[i][j]=true;
+                   }
+                   else
+                   {
+                       ar[i][j]=false;
+                   }
+                   
+                   
+               }
+               
+               if(ar[i][j]==true && j-i>end-si)
+               { 
+                 end=j;
+                 si=i;
+                   
+               }
+                  
+               
+           }
+           
+       }
+        return s.substr(si,end-si+1);
+       
+        
+    }
+};

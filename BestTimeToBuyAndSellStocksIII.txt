@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int mpist=0;
+        int lsf=prices[0];
+        vector<int> dp1(prices.size());
+        for(int i=1;i<prices.size();i++)
+        {
+            if(prices[i]<lsf)
+            {
+                lsf=prices[i];
+            }
+            mpist=prices[i]-lsf;
+            if(mpist>dp1[i-1])
+            {
+                dp1[i]=mpist;
+            }
+            else
+            {
+                dp1[i]=dp1[i-1];
+            }
+        }
+        
+        int mpibt=0;
+        int maxat=prices[prices.size()-1];
+        vector<int> dp2(prices.size());
+        for(int i=prices.size()-2;i>=0;i--)
+        {
+            if(prices[i]>maxat)
+            { maxat=prices[i];}
+            
+            mpibt=maxat-prices[i];
+            {
+                if(mpibt>dp2[i+1])
+                {
+                    dp2[i]=mpibt;
+                }
+                else
+                {
+                    dp2[i]=dp2[i+1];
+                }
+            }
+        }
+        
+        int op=0;
+        for(int i=0;i<prices.size();i++)
+        {
+            if(dp1[i]+dp2[i]>op)
+            {op=dp1[i]+dp2[i];}
+        }
+        
+        return op;
+        
+    }
+};
